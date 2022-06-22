@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html com backend</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+    <div>
+        <input type="text" id="txtBusca" placeholder="Buscar times">
+    </div>
+
+    <div class="container">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Estádio</th>
+                    <th>Capacidade</th>
+                    <th>Número de títulos</th>
+                </tr>
+            </thead>
+            <tbody id="resultado">
+             
+            </tbody>
+        </table>
+    </div>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>             
+
+        $('#txtBusca').keypress(function(){
+            let busca = {
+                "busca": $("#txtBusca").val()
+            }
+            busca = JSON.stringify(busca);
+
+            $.post("http://localhost:8080/pw-3/backend/clube/",busca,function(resposta){
+                let tabelaDeClubes = '';
+                if(resposta.result){
+                    resposta.valores.forEach(clube => {
+                      tabelaDeClubes +=  `<tr onclick="clubeClicado('${clube.nome}')">
+                                            <td>${clube.nome}</td>
+                                            <td>${clube.estadio}</td>
+                                            <td>${clube.capacidade_estadio}</td>
+                                            <td>${clube.num_titulos}</td>
+                                          </tr>`;                    
+                    });
+
+                    $("#resultado").html(tabelaDeClubes);
+                }
+            });
+        });
+
+
+        function clubeClicado(clube){
+            alert(clube);
+        }
+
+    </script> 
+</body>
+</html>
