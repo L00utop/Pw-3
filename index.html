@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>html com backend</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<style>
 
+</style>
 </head>
 <body>
     <div>
@@ -35,7 +37,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">jogos</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="dadosJogo">
@@ -51,14 +53,14 @@
 
     <script src="js/jquery.js"></script>
     <script>             
-
-        $('#txtBusca').keypress(function(){
+        const URLGLOBAL = $(location).attr('href');
+        function listarClubes(){
             let busca = {
                 "busca": $("#txtBusca").val()
             }
             busca = JSON.stringify(busca);
 
-            $.post("http://localhost:8080/pw-3/backend/clube/",busca,function(resposta){
+            $.post(`${URLGLOBAL}/backend/clube/`,busca,function(resposta){
                 let tabelaDeClubes = '';
                 if(resposta.result){
                     resposta.valores.forEach(clube => {
@@ -73,8 +75,10 @@
                     $("#resultado").html(tabelaDeClubes);
                 }
             });
-        });
+        }
+        $('#txtBusca').keypress(function(){listarClubes()});
 
+        $( window ).on( "load", function() {listarClubes()});
 
         function clubeClicado(clube){
             
@@ -84,26 +88,26 @@
                 let dadosJogo = '';
                 if(resposta.result){
                     resposta.valores.forEach(jogos=>{
-                        dadosJogo += modeloJogo(jogos.data_hota,"","","","",jogos.gol_adversario);                        
+                        dadosJogo += modeloJogo(jogos.data_hota,jogos.estadio,jogos.gol_time,jogos.time,jogos.adversario,jogos.gol_adversario);                        
                     })
                     $("#dadosJogo").html(dadosJogo);      
                 }
             });
         }
 
-        function modeloJogo(x,estadio,time,gol_time,adversario,gol_adversario){
+        function modeloJogo(data_hora,estadio,time,gol_time,adversario,gol_adversario){
             return `<div class="card text-center">                
                 <div class="card-body">
-                  <h5 class="card-title">${x}</h5>
-                  <p class="card-text">Estádio</p>
+                  <h5 class="card-title">${data_hora}</h5>
+                  <p class="card-text">${estadio}</p>
 
                   <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <button type="button" class="btn btn-danger">
-                            Notifications <span class="badge text-bg-secondary">4</span>
+                            ${gol_time} <span class="badge text-bg-secondary">${time}</span>
                         </button>
-                        <button type="button" class="btn btn-warning">Middle</button>
+                        <button type="button" class="btn btn-warning">VS</button>
                         <button type="button" class="btn btn-success">
-                            Notifications <span class="badge text-bg-secondary">${gol_adversario}</span>
+                            ${adversario} <span class="badge text-bg-secondary">${gol_adversario}</span>
                         </button>
                     </div>                  
                 </div>                
