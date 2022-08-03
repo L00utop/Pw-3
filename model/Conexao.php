@@ -1,7 +1,7 @@
 <?php
 define('HOST',      'localhost');
 define('USERNAME',  'root');
-define('DBNAME',    'loja_produtos');
+define('DBNAME',    'loja_etec');
 define('PASSWORD',  '');
 define('PORT',      '3306');
 
