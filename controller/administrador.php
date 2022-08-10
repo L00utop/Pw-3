@@ -18,3 +18,15 @@
         ];
         echo json_encode($result);
     }
+    elseif($dadosRecebidos['acao'] == 'consutarTodos'){
+        $adm = new Administrador();
+        $filtro = $dadosRecebidos['filtro'];
+        $dados = $adm->consultarTodos($filtro);
+        $result['result'] = false;                  
+        $result['dados'] = "";                  
+        if($dados){
+            $result['result'] = true;
+            $result['dados'] = $dados;
+        }        
+        echo json_encode($result);
+    }

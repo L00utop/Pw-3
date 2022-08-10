@@ -26,12 +26,14 @@ class Administrador{
 
     public function consultarTodos($filtro=''){
         $cx = new Conexao();
-        $cmdSql = "SELECT * FROM administrador  WHERE administrador.nome LIKE concat('%,$filtro,%') OR administrador.matricula LIKE concat('%,$filtro,%') OR administrador.email LIKE concat('%,$filtro,%');";
+        $cmdSql = "SELECT * FROM administrador WHERE administrador.nome LIKE concat('%',:filtro,'%') OR administrador.matricula LIKE concat('%',:filtro,'%') OR administrador.email LIKE concat('%',:filtro,'%');";
         $dados = [
-            ':matricula' => $this->matricula, 
-            ':email' => $this->email, 
-            ':senha' => $this->senha, 
-            ':nome' => $this->nome
+            ':filtro' => $filtro            
         ];
+        $result = $cx->select($cmdSql,$dados);
+        if($result){
+            return $result->fetchAll();
+        }
+        return false;        
     }
 }
