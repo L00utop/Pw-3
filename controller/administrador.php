@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
     header('Content-type: application/json');
     $dadosRecebidos = file_get_contents('php://input');
 

@@ -12,7 +12,7 @@ class Administrador{
         $dados = [
             ':matricula' => $this->matricula, 
             ':email' => $this->email, 
-            ':senha' => $this->senha, 
+            ':senha' => $this->criptografarSenha($this->senha), 
             ':nome' => $this->nome
         ];
 
@@ -73,5 +73,13 @@ class Administrador{
             return true;
         }
         return false;        
+    }
+
+    private function criptografarSenha($senha): string{
+        return password_hash($senha,PASSWORD_BCRYPT,['cost' => 12]);
+    }
+
+    private function decriptografarSenha($senha, $criptografia):bool{
+        return password_verify($senha, $criptografia);
     }
 }
