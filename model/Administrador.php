@@ -32,7 +32,45 @@ class Administrador{
         ];
         $result = $cx->select($cmdSql,$dados);
         if($result){
-            return $result->fetchAll();
+            return $result->fetchAll(PDO::FETCH_CLASS, 'Administrador');
+        }
+        return false;        
+    }
+
+    public function consultarPorEmail($email){
+        $cx = new Conexao();
+        $cmdSql = "SELECT * FROM administrador WHERE administrador.email = :email;";
+        $dados = [
+            ':email' => $email            
+        ];
+        $result = $cx->select($cmdSql,$dados);
+        if($result){
+            $result->setFetchMode(PDO::FETCH_CLASS, 'Administrador');
+            $adm = $result->fetch();
+            $this->matricula = $adm->matricula;
+            $this->email = $adm->email;	
+            $this->senha = $adm->senha;	
+            $this->nome = $adm->nome;
+            return true;
+        }
+        return false;        
+    }
+
+    public function consultarPorMatricula($matricula){
+        $cx = new Conexao();
+        $cmdSql = "SELECT * FROM administrador WHERE administrador.matricula = :m;";
+        $dados = [
+            ':m' => $matricula            
+        ];
+        $result = $cx->select($cmdSql,$dados);
+        if($result){
+            $result->setFetchMode(PDO::FETCH_CLASS, 'Administrador');
+            $adm = $result->fetch();
+            $this->matricula = $adm->matricula;
+            $this->email = $adm->email;	
+            $this->senha = $adm->senha;	
+            $this->nome = $adm->nome;
+            return true;
         }
         return false;        
     }

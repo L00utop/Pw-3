@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
     header('Content-type: application/json');
     $dadosRecebidos = file_get_contents('php://input');
 
@@ -27,6 +27,28 @@
         if($dados){
             $result['result'] = true;
             $result['dados'] = $dados;
+        }        
+        echo json_encode($result);
+    }
+    elseif($dadosRecebidos['acao'] == 'consutarPorEmail'){
+        $adm = new Administrador();
+        $email = $dadosRecebidos['email'];        
+        $result['result'] = false;                  
+        $result['dados'] = "";                  
+        if($adm->consultarPorEmail($email)){
+            $result['result'] = true;
+            $result['dados'] = $adm;
+        }        
+        echo json_encode($result);
+    }
+    elseif($dadosRecebidos['acao'] == 'consutarPorMatricula'){
+        $adm = new Administrador();
+        $matric = $dadosRecebidos['matricula'];
+        $result['result'] = false;                  
+        $result['dados'] = "";                  
+        if($adm->consultarPorMatricula($matric)){
+            $result['result'] = true;
+            $result['dados'] = $adm;
         }        
         echo json_encode($result);
     }
