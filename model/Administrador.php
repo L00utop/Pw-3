@@ -82,4 +82,11 @@ class Administrador{
     private function decriptografarSenha($senha, $criptografia):bool{
         return password_verify($senha, $criptografia);
     }
+
+    public function login($usuario,$senha):bool{
+        if($this->consultarPorEmail($usuario) or $this->consultarPorMatricula($usuario)){
+            return $this->decriptografarSenha($senha,$this->senha);
+        }
+        return false;
+    }
 }

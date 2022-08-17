@@ -52,3 +52,15 @@
         }        
         echo json_encode($result);
     }
+    elseif($dadosRecebidos['acao'] == 'logar'){
+        $adm = new Administrador();
+        $usuario = $dadosRecebidos['usuario'];
+        $senha = $dadosRecebidos['senha'];
+        $result['result'] = false;                  
+        $result['dados'] = "";                  
+        if($adm->login($usuario,$senha)){
+            $result['result'] = true;
+            $result['dados'] = $adm;
+        }        
+        echo json_encode($result);
+    }
