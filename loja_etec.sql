@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 27-Jul-2022 às 12:07
+-- Tempo de geração: 24-Ago-2022 às 10:52
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 7.4.26
 
@@ -36,6 +36,17 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   PRIMARY KEY (`matricula`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `administrador`
+--
+
+INSERT INTO `administrador` (`matricula`, `email`, `senha`, `nome`) VALUES
+(213213, 'eliton@gmail.com', 'rwqrwerwer', 'Eliton Camargo'),
+(2132213, 'elito2n@gmail.com', 'rwqrwerwer', 'Eliton Camargo'),
+(21322136, 'elito5n@gmail.com', 'rwqrwerwer', 'Eliton Camargo'),
+(21322138, 'josecalors@gmail.com', 'rwqrwerwer', 'José Carlos Silva'),
+(21322178, 'josecalors02@gmail.com', '$2y$12$qvxhRSyn3jyMEwU4IWmK0eLbrzStJRfbxWL3NsP2KhcnfXRCSJrnO', 'José Carlos Silva');
 
 -- --------------------------------------------------------
 
